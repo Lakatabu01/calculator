@@ -2,11 +2,10 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 20px;
+    padding-top: 40px;
     background-color:  greenyellow;
     height: 100%;
     flex-direction: column;
-    font-weight: bold;
 }
 .container{
     display: grid;
@@ -17,10 +16,11 @@ body{
     grid-auto-rows: minmax(50px, auto);
     align-items: center;
     justify-content: center;
-    background-color: black;
+    background-color: rgb(22, 21, 21);
     place-items: center;
     width: 20%;
     border-radius: 15px;
+    box-shadow: 10px 10px 10px 0;
 }
 
 .container > div {
@@ -32,9 +32,23 @@ body{
     grid-column: 1/5;
     border: solid 2px black;
     width: 100%;
-    height: 50px;
+    height: 90px;
     background-color: lightgrey;
+    color: green;
+    padding: 5px;
+    font-size: 18px;
 }
+
+.display{
+    display: flex;
+    align-items: end;
+   flex-basis: auto;
+}
+
+.para{
+    margin-left: auto;
+}
+
 
 .zero{
     grid-column: 1/3;
@@ -47,9 +61,11 @@ body{
 button{
     height: 50px;
     width: 50px;
-    border: solid 2px white;
+    border: solid 2px rgb(90, 84, 84);
     border-radius: 10px;
-    background-color: ;
+    background-color:rgb(90, 84, 84);
+    color: white;
+    cursor: pointer;
 }
 
 .btn-zero, .btn-one{
