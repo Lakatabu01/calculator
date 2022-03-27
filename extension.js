@@ -1,8 +1,10 @@
-let displayStorage = ""
-let displayStorage2 = ""
+let currentInput = ""
+let previousInput = ""
 let firstNumber = ""
 let secondNumber = ""
 let operator = ""
+let box1 = ""
+
 
 //below are the functions for the different operators 
 function add (a, b){
@@ -35,7 +37,6 @@ if (operator === "-"){
 
 //grabbing the display
 let display = document.querySelector(".display")
-const para1 = document.createElement("p")
 
 //grabbing all the number buttons
 let digitButtons = document.querySelectorAll(".digit")
@@ -45,26 +46,19 @@ let digitButtons = document.querySelectorAll(".digit")
 //the right digits when clicked
 digitButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-        if (operator === "+" || operator === "-" || operator === "/" || operator === "x"){
-            secondDigits(e.target.textContent)
-        } else {
         displayV(e.target.textContent)
-        }
     })
+    button.addEventListener("mouseover", () => button.classList.add("orange"))
+    button.addEventListener("mouseleave", () => button.classList.remove("orange"))
 });
 
 function displayV(number){
-    displayStorage += number
-    para1.textContent = displayStorage
-    display.appendChild(para1)
+    if (currentInput.length >= 11 ) return
+    currentInput += number
+    display.textContent = currentInput
     }  
 
-   function secondDigits(number){
-        displayStorage2 += number
-        secondNumber = displayStorage2
-        para1.textContent = displayStorage + operator + displayStorage2
-
-    }
+  
 
 // grabbing all the operator buttons
 let operatorButtons = document.querySelectorAll(".operator")
@@ -74,14 +68,49 @@ operatorButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
         store(e.target.textContent)
     })
+    button.addEventListener("mouseover", () => button.classList.add("yellow"))
+    button.addEventListener("mouseleave", () => button.classList.remove("yellow"))
 })
 
 function store(sign){
-    operator += sign
-    firstNumber = displayStorage
+    if (operator !== ""){
+        equalTO()
+    }
+    operator = sign
+    display.textContent = ""
+    display.textContent = currentInput + " " + operator 
+    previousInput = currentInput
+    currentInput = ""
 }
 
+//grabbing the equal to button
+const equal = document.querySelector(".equal")
+
+//setting the event listener for the equal to button 
+equal.addEventListener("click", equalTO)
+equal.addEventListener("mouseover", () => equal.classList.add("yellow"))
+equal.addEventListener("mouseleave", () => equal.classList.remove("yellow"))
 
 
+function equalTO(){
+    firstNumber = previousInput
+    secondNumber = currentInput
+    box1 = 0
+    if (operator === "+") {
+       box1 += roundUp(add(parseInt(firstNumber), parseInt(secondNumber)))
+    } else if (operator === "-") {
+        box1 += roundUp(subtract(parseInt(firstNumber), parseInt(secondNumber)))
+    } else if (operator === "x") {
+        box1 += roundUp(multiply(parseInt(firstNumber), parseInt(secondNumber)))
+    } else if (operator === "/") {
+        box1 += roundUp(divide(parseInt(firstNumber), parseInt(secondNumber)))
+    }
+    firstNumber = ""
+    previousInput = ""
+    currentInput = box1
+    operator = ""
+}
 
-
+function roundUp(number){
+ return Math.round(1000*number)/1000
+}
