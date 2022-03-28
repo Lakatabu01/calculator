@@ -97,20 +97,18 @@ function equalTO(){
     secondNumber = currentInput
     box1 = 0
     if (operator === "+") {
-       box1 += roundUp(add(parseInt(firstNumber), parseInt(secondNumber)))
+       box1 += add(parseInt(firstNumber), parseInt(secondNumber))
     } else if (operator === "-") {
-        box1 += roundUp(subtract(parseInt(firstNumber), parseInt(secondNumber)))
+        box1 += subtract(parseInt(firstNumber), parseInt(secondNumber))
     } else if (operator === "x") {
-        box1 += roundUp(multiply(parseInt(firstNumber), parseInt(secondNumber)))
+        box1 += multiply(parseInt(firstNumber), parseInt(secondNumber))
     } else if (operator === "/") {
-        box1 += roundUp(divide(parseInt(firstNumber), parseInt(secondNumber)))
+        box1 += divide(parseInt(firstNumber), parseInt(secondNumber))
     }
+    display.textContent = box1
     firstNumber = ""
     previousInput = ""
     currentInput = box1
     operator = ""
 }
 
-function roundUp(number){
- return Math.round(1000*number)/1000
-}
