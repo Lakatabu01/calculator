@@ -3,7 +3,7 @@ body{
     justify-content: center;
     align-items: center;
     padding-top: 40px;
-    background-color:  greenyellow;
+    background-color: yellow;
     height: 100%;
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
@@ -17,11 +17,13 @@ body{
     grid-auto-rows: minmax(50px, auto);
     align-items: center;
     justify-content: center;
-    background-color: rgb(22, 21, 21);
+    background-color: rgb(110, 104, 104);
     place-items: center;
     width: 20%;
     border-radius: 15px;
     box-shadow: 10px 10px 10px 0;
+    font-size: 12px;
+    font-weight: bolder;
 }
 
 .container > div {
@@ -45,6 +47,8 @@ body{
     align-items: end;
    flex-direction: column;
     font-size: 30px;
+    word-wrap: break-word;
+  word-break: break-all;
 }
 
 .para{
@@ -66,14 +70,25 @@ button{
     width: 50px;
     border: solid 2px rgb(90, 84, 84);
     border-radius: 10px;
-    background-color:rgb(90, 84, 84);
+    background-color:white;
     color: white;
     cursor: pointer;
 }
 
-.btn-zero, .btn-one{
+.clear, .eject{
     width: 100px;
     height: 40px;
+}
+
+.warning{
+    background-color: rgb(230, 230, 53);
+    border-color: red;
+    color: red;
+}
+
+.red{
+    background-color: darkred;
+    border-color: darkred;
 }
 
 .orange{
@@ -88,4 +103,9 @@ button{
 .footer{
     font-size: 20px;
     padding-top: 30px;
+}
+
+button{
+    box-shadow: 10px 10px 10px 0;
+    color: black;
 }

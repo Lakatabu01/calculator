@@ -56,7 +56,10 @@ function displayV(number){
     if (currentInput.length >= 11 ) return
     currentInput += number
     display.textContent = currentInput
-    }  
+    if ( operator == "/" && currentInput == "0" ){
+         display.textContent = "error!"
+    } 
+}  
 
   
 
@@ -91,24 +94,63 @@ equal.addEventListener("click", equalTO)
 equal.addEventListener("mouseover", () => equal.classList.add("yellow"))
 equal.addEventListener("mouseleave", () => equal.classList.remove("yellow"))
 
+const clear = document.querySelector(".clear")
+
+clear.addEventListener("click", remove)
+clear.addEventListener("mouseover", () => clear.classList.add("red"))
+clear.addEventListener("mouseleave", () => clear.classList.remove("red"))
+
+
+const eject = document.querySelector(".eject")
+eject.addEventListener("click", cut)
+eject.addEventListener("mouseover", () => eject.classList.add("warning"))
+eject.addEventListener("mouseleave", () => eject.classList.remove("warning"))
+
+function cut() {
+ let extract = currentInput.length - 1
+ let num = currentInput.slice(0, extract)
+ currentInput = num
+display.textContent = currentInput
+}
+
+
+function remove(){
+    currentInput = ""
+    display.textContent = 0
+    previousInput = ""
+}
+
 
 function equalTO(){
     firstNumber = previousInput
     secondNumber = currentInput
     box1 = 0
+    answer = 0
     if (operator === "+") {
-       box1 += add(parseInt(firstNumber), parseInt(secondNumber))
+       box1 += add(parseFloat(firstNumber), parseFloat(secondNumber))
     } else if (operator === "-") {
-        box1 += subtract(parseInt(firstNumber), parseInt(secondNumber))
+        box1 += subtract(parseFloat(firstNumber), parseFloat(secondNumber))
     } else if (operator === "x") {
-        box1 += multiply(parseInt(firstNumber), parseInt(secondNumber))
+        box1 += multiply(parseFloat(firstNumber), parseFloat(secondNumber))
     } else if (operator === "/") {
-        box1 += divide(parseInt(firstNumber), parseInt(secondNumber))
+        box1 += divide(parseFloat(firstNumber), parseFloat(secondNumber))
     }
-    display.textContent = box1
+    answer += Math.round(1000*box1)/1000
+    display.textContent = answer
+
     firstNumber = ""
     previousInput = ""
     currentInput = box1
     operator = ""
 }
 
+const decimal = document.querySelector(".decimal")
+decimal.addEventListener("click", (e) => {
+ decimalPoint(e.target.textContent)
+})
+
+function decimalPoint(point) {
+    if (currentInput.includes(".")) return
+currentInput += point
+display.textContent = currentInput
+}
