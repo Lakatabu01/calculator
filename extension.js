@@ -23,18 +23,6 @@ function divide (a, b){
     return a / b
 }
 
-//This function picks the right operator to use 
-function operate(operator, num1, num2){
-if (operator === "-"){
-    return subtract(num1, num2)
-} else if (operator === "+"){
-    return add(num1, num2)
-} else if (operator === "/"){
-    return divide(num1, num2)
-} else if (operator === "x"){
-    return multiply(num1, num2)}
-}
-
 //grabbing the display
 let display = document.querySelector(".display")
 
@@ -60,8 +48,6 @@ function displayV(number){
          display.textContent = "error!"
     } 
 }  
-
-  
 
 // grabbing all the operator buttons
 let operatorButtons = document.querySelectorAll(".operator")
@@ -94,13 +80,14 @@ equal.addEventListener("click", equalTO)
 equal.addEventListener("mouseover", () => equal.classList.add("yellow"))
 equal.addEventListener("mouseleave", () => equal.classList.remove("yellow"))
 
-const clear = document.querySelector(".clear")
 
+// Code for clearing the display all at once 
+const clear = document.querySelector(".clear")
 clear.addEventListener("click", remove)
 clear.addEventListener("mouseover", () => clear.classList.add("red"))
 clear.addEventListener("mouseleave", () => clear.classList.remove("red"))
 
-
+//code for deleting one digit after the other (backspace)
 const eject = document.querySelector(".eject")
 eject.addEventListener("click", cut)
 eject.addEventListener("mouseover", () => eject.classList.add("warning"))
@@ -144,6 +131,7 @@ function equalTO(){
     operator = ""
 }
 
+// adding an event listener to the decimal button
 const decimal = document.querySelector(".decimal")
 decimal.addEventListener("click", (e) => {
  decimalPoint(e.target.textContent)
@@ -153,4 +141,25 @@ function decimalPoint(point) {
     if (currentInput.includes(".")) return
 currentInput += point
 display.textContent = currentInput
+}
+
+// adding the event listener that allows 
+//the calculator to be operated with the keyboard
+window.addEventListener("keydown",  keyOperation)
+
+function keyOperation(e){
+if (e.key >= 0 && e.key <= 9) displayV(e.key)
+if (e.key === ".") decimalPoint(e.key)
+if (e.key === "=" || e.key === "Enter") equalTO()
+if (e.key === "Backspace") cut()
+if (e.key === "Escape") remove()
+if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*") store(convertOperator(e.key))
+}
+
+// converts the "*" into "x" to be used in the store function 
+function convertOperator(keyboardOperator){
+    if (keyboardOperator === "+") return "+"
+    if (keyboardOperator === "-") return "-"
+    if (keyboardOperator === "/") return "/"
+    if (keyboardOperator === "*") return "x" 
 }
